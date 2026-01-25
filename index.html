@@ -6,7 +6,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 * { box-sizing:border-box; font-family:"Segoe UI", system-ui, sans-serif; margin:0; padding:0; transition: all 0.3s ease; }
-body { height:100vh; display:flex; overflow:hidden; flex-direction:row; color:#fff; position:relative; }
+/* Changed height to min-height and overflow to auto so buttons have room on small screens */
+body { min-height:100vh; display:flex; overflow-x:hidden; overflow-y:auto; flex-direction:row; color:#fff; position:relative; }
 
 /* Side gradients */
 .side-bar { position:absolute; top:0; width:7%; height:100%; pointer-events:none; z-index:0; }
@@ -29,6 +30,9 @@ body { height:100vh; display:flex; overflow:hidden; flex-direction:row; color:#f
 /* Title */
 h1 { margin-bottom:14px; font-size:2.4rem; font-weight:700; text-align:center; color:#fff; text-shadow: 0 2px 6px rgba(0,0,0,0.6); transition: color 1s ease, text-shadow 1s ease; }
 
+/* Desktop: hide the manual line break */
+.mobile-br { display: none; }
+
 /* Image frame */
 .image-frame { background: rgba(0,0,0,0.5); border-radius:20px; padding:16px; box-shadow:0 25px 60px rgba(0,0,0,0.6); display:flex; align-items:center; justify-content:center; max-height:70vh; width:100%; margin-bottom:16px; z-index:2; }
 img { width:100%; max-height:70vh; object-fit:contain; border-radius:14px; transition:opacity 0.4s ease, transform 0.3s ease; }
@@ -42,28 +46,31 @@ button:hover { transform: translateY(-2px) scale(1.05); box-shadow:0 0 20px rgba
 @media (max-width:700px) {
   body { flex-direction:column; }
   .color-panel { flex-direction:row; width:100%; height:60px; padding:5px; gap:5px; }
-  h1 { font-size:2rem; }
+  h1 { font-size:1.8rem; margin-top: 10px; }
+  
+  /* Show the break on mobile to force "AI & Me" to the next line */
+  .mobile-br { display: block; }
+  
+  .image-frame { max-height:55vh; }
   button { padding:10px 18px; font-size:14px; }
-  .image-frame { max-height:60vh; }
+  
+  /* Adds background space below the buttons on mobile */
+  .main-container { padding-bottom: 50px; justify-content: flex-start; }
 }
 </style>
 </head>
 <body>
 
-<!-- Side gradients & patterns -->
 <div class="side-bar side-left"></div>
 <div class="side-bar side-right"></div>
 <div class="pattern pattern-left"></div>
 <div class="pattern pattern-right"></div>
 
-<!-- Color Picker -->
 <div class="color-panel">
-  <!-- First 4 favorites -->
   <div class="color-swatch" data-gradient="linear-gradient(135deg,#000,#111,#222)" style="background:linear-gradient(135deg,#000,#111,#222)"></div>
   <div class="color-swatch" data-gradient="linear-gradient(135deg,#111,#222,#333)" style="background:linear-gradient(135deg,#111,#222,#333)"></div>
   <div class="color-swatch" data-gradient="linear-gradient(135deg,#0f0f1a,#1a1a2a,#333366)" style="background:linear-gradient(135deg,#0f0f1a,#1a1a2a,#333366)"></div>
   <div class="color-swatch" data-gradient="linear-gradient(135deg,#222244,#444488,#6666cc)" style="background:linear-gradient(135deg,#222244,#444488,#6666cc)"></div>
-  <!-- Remaining new unique options after removing 5,6,7,10,12 -->
   <div class="color-swatch" data-gradient="linear-gradient(135deg,#1a0a33,#331166,#552288)" style="background:linear-gradient(135deg,#1a0a33,#331166,#552288)"></div>
   <div class="color-swatch" data-gradient="linear-gradient(135deg,#0a2222,#114444,#226666)" style="background:linear-gradient(135deg,#0a2222,#114444,#226666)"></div>
   <div class="color-swatch" data-gradient="linear-gradient(135deg,#1a1111,#552b2a,#b76e79)" style="background:linear-gradient(135deg,#1a1111,#552b2a,#b76e79)"></div>
@@ -71,7 +78,7 @@ button:hover { transform: translateY(-2px) scale(1.05); box-shadow:0 0 20px rgba
 </div>
 
 <div class="main-container">
-  <h1 id="title">Altered Realities: AI & Me</h1>
+  <h1 id="title">Altered Realities: <br class="mobile-br">AI & Me</h1>
   <div class="image-frame">
     <img id="galleryImage" src="" alt="AI Art">
   </div>
@@ -83,51 +90,11 @@ button:hover { transform: translateY(-2px) scale(1.05); box-shadow:0 0 20px rgba
 </div>
 
 <script>
-// Images
-const images = ["images/viking2.png",
-      "images/axe.jpg",
-      "images/bike.png",
-      "images/camera.png",
-"images/water.jpg",
-"images/shoes.png",
-"images/guitarwail2.png",
-"images/arm2.png",
-"images/tornado.png",
-"images/terminator.png",
-"images/alien.png",
-"images/explosion.png",
-      "images/custom.jpg",
-      "images/fire.jpg",
-      "images/guitar.jpg",
-"images/lion2.jpg",
-"images/futuristic.jpg",
-"images/flying.jpg",
-"images/mask.jpg",
-"images/portal.jpg",
-"images/tech1.jpg",
-"images/viking.jpg",
-"images/guitarwail.png",
-"images/future3.jpg",
-"images/sword.jpg",
-"images/viking2.png",
-"images/arm.jpg",
-"images/oct.png",
-"images/guitarz.jpg",
-"images/fire_ice.png",
-"images/futureistic2.jpg",
-"images/alien.png",
-"images/beach.png",
-"images/guitar2.jpg",
-"images/tech2.png",
-"images/flying2.jpg",
-"images/code.png",
-"images/cyborg.png",
-"images/guitarlight.png"];
+const images = ["images/viking2.png", "images/axe.jpg", "images/bike.png", "images/camera.png", "images/water.jpg", "images/shoes.png", "images/guitarwail2.png", "images/arm2.png", "images/tornado.png", "images/terminator.png", "images/explosion.png", "images/custom.jpg", "images/fire.jpg", "images/guitar.jpg", "images/lion2.jpg", "images/futuristic.jpg", "images/flying.jpg", "images/mask.jpg", "images/portal.jpg", "images/tech1.jpg", "images/viking.jpg", "images/guitarwail.png", "images/future3.jpg", "images/sword.jpg", "images/viking2.png", "images/arm.jpg", "images/oct.png", "images/guitarz.jpg", "images/fire_ice.png", "images/futureistic2.jpg", "images/alien.png", "images/beach.png", "images/guitar2.jpg", "images/tech2.png", "images/flying2.jpg", "images/code.png", "images/cyborg.png", "images/guitarlight.png"];
 let currentIndex = Math.floor(Math.random()*images.length);
 const imgElement = document.getElementById("galleryImage");
 const buttons = [document.getElementById("prevBtn"), document.getElementById("randBtn"), document.getElementById("nextBtn")];
 
-// Image functions
 function showImage(i){ imgElement.style.opacity=0; setTimeout(()=>{ imgElement.src=images[i]; imgElement.onload=()=>imgElement.style.opacity=1; },150);}
 function nextImage(){ currentIndex=(currentIndex+1)%images.length; showImage(currentIndex);}
 function prevImage(){ currentIndex=(currentIndex-1+images.length)%images.length; showImage(currentIndex);}
@@ -135,7 +102,6 @@ function randomImage(){ let n; do{ n=Math.floor(Math.random()*images.length);} w
 document.addEventListener("keydown",e=>{ if(e.key==="ArrowRight") nextImage(); if(e.key==="ArrowLeft") prevImage(); });
 showImage(currentIndex);
 
-// Gradients with button colors (no auto-cycling)
 const gradients=[
   {bg:"linear-gradient(135deg,#000,#111,#222)", btn:"#444"},
   {bg:"linear-gradient(135deg,#111,#222,#333)", btn:"#555"},
@@ -147,7 +113,6 @@ const gradients=[
   {bg:"linear-gradient(135deg,#001a33,#003366,#005599)", btn:"#005599"}
 ];
 
-// Initialize first color
 function setGradient(index){
   const g = gradients[index];
   document.body.style.background = g.bg;
@@ -155,13 +120,11 @@ function setGradient(index){
 }
 setGradient(0);
 
-// Color picker click
 document.querySelectorAll(".color-swatch").forEach((s, idx)=>{
   s.addEventListener("click",()=>{
     setGradient(idx);
   });
 });
 </script>
-
 </body>
 </html>
