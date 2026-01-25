@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 * { box-sizing:border-box; font-family:"Segoe UI", system-ui, sans-serif; margin:0; padding:0; transition: all 0.3s ease; }
-/* Changed height to min-height and overflow to auto so buttons have room on small screens */
+/* Changed height to min-height and added scroll for mobile safety */
 body { min-height:100vh; display:flex; overflow-x:hidden; overflow-y:auto; flex-direction:row; color:#fff; position:relative; }
 
 /* Side gradients */
@@ -28,9 +28,7 @@ body { min-height:100vh; display:flex; overflow-x:hidden; overflow-y:auto; flex-
 .main-container { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:10px; z-index:2; position:relative; }
 
 /* Title */
-h1 { margin-bottom:14px; font-size:2.4rem; font-weight:700; text-align:center; color:#fff; text-shadow: 0 2px 6px rgba(0,0,0,0.6); transition: color 1s ease, text-shadow 1s ease; }
-
-/* Desktop: hide the manual line break */
+h1 { margin-bottom:14px; font-size:2.4rem; font-weight:700; text-align:center; color:#fff; text-shadow: 0 2px 6px rgba(0,0,0,0.6); transition: color 1s ease, text-shadow 1s ease; line-height: 1.2; }
 .mobile-br { display: none; }
 
 /* Image frame */
@@ -43,19 +41,24 @@ img:hover { transform: scale(1.02); }
 button { background: rgba(255,255,255,0.05); color:#fff; border:2px solid rgba(255,255,255,0.3); padding:12px 24px; border-radius:14px; cursor:pointer; font-size:16px; font-weight:600; box-shadow:0 0 10px rgba(255,255,255,0.2); backdrop-filter: blur(4px); transition: all 0.3s ease; }
 button:hover { transform: translateY(-2px) scale(1.05); box-shadow:0 0 20px rgba(0,200,255,0.7); border-color: rgba(0,200,255,0.8); background: rgba(0,200,255,0.1); }
 
+/* MOBILE FIXES */
 @media (max-width:700px) {
   body { flex-direction:column; }
-  .color-panel { flex-direction:row; width:100%; height:60px; padding:5px; gap:5px; }
-  h1 { font-size:1.8rem; margin-top: 10px; }
+  .color-panel { flex-direction:row; width:100%; height:60px; padding:5px; gap:5px; order: -1; }
   
-  /* Show the break on mobile to force "AI & Me" to the next line */
+  /* Give the title enough room so the image doesn't cover the second line */
+  h1 { font-size:1.8rem; margin-top: 10px; margin-bottom: 20px; min-height: 80px; display: flex; flex-direction: column; justify-content: center; }
   .mobile-br { display: block; }
   
-  .image-frame { max-height:55vh; }
+  /* Shrink the image slightly more on mobile to make room for buttons */
+  .image-frame { max-height:50vh; margin-bottom: 25px; }
+  img { max-height: 50vh; }
+  
+  /* Ensure buttons stay below the image and have background space at the bottom */
+  .controls { margin-top: 10px; padding-bottom: 40px; }
   button { padding:10px 18px; font-size:14px; }
   
-  /* Adds background space below the buttons on mobile */
-  .main-container { padding-bottom: 50px; justify-content: flex-start; }
+  .main-container { justify-content: flex-start; }
 }
 </style>
 </head>
@@ -126,5 +129,6 @@ document.querySelectorAll(".color-swatch").forEach((s, idx)=>{
   });
 });
 </script>
+
 </body>
 </html>
