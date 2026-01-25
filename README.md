@@ -9,6 +9,9 @@ Welcome to Altered Realities: AI & Me — my personal playground where AI meets 
 
 Here, I explore AI by prompting it with pictures of myself, generating images in all kinds of creative, surreal, and sometimes hilarious scenarios. This project is a fun, interactive showcase of AI + design skills.
 
+
+**Click here to check it out:**  https://ryanwdurham.github.io/Altered-Realities-AI-Me/ 
+
 **🖼 Features:**
 
 🎲 Randomized AI Images: Each visit starts with a new image.
